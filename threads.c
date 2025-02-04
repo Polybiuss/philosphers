@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:08:16 by jbergos           #+#    #+#             */
-/*   Updated: 2025/02/04 18:42:11 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/02/04 18:53:55 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	thread_create(t_program *prog, pthread_mutex_t *forks)
 	i = 0;
 	while (i < prog->philos[0].nb_philos)
 	{
-		printf("hiiii\n");
 		if (pthread_create(&prog->philos[i].thread, NULL, &philo_routine, &prog->philos[i]) != 0)
 			clear_mutex("Err, creation thread", prog, forks);
 		++i;

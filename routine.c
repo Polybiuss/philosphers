@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:20:19 by jbergos           #+#    #+#             */
-/*   Updated: 2025/02/04 18:48:21 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/02/04 19:02:12 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*philo_routine(void *ph)
 
 	philo = (t_philo *)ph;
 	if (philo->id % 2 == 0)
-		usleep(15);
+		usleep(1);
 	while(!dead_loop(philo))
 	{
 		eat(philo);
