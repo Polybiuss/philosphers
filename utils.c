@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 14:30:00 by jbergos           #+#    #+#             */
-/*   Updated: 2025/02/04 18:28:19 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:24:05 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_atoi_scam(char *s)
 	return ((int)res);
 }
 
-long long int get_time(void)
+long long int	get_time(void)
 {
 	struct timeval	t;
 
@@ -51,7 +51,9 @@ long long int get_time(void)
 
 void	clear_mutex(char *s, t_program *prog, pthread_mutex_t *forks)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	if (s)
 	{
 		write(2, s, ft_strlen(s));
@@ -60,9 +62,23 @@ void	clear_mutex(char *s, t_program *prog, pthread_mutex_t *forks)
 	pthread_mutex_destroy(&prog->eat_lock);
 	pthread_mutex_destroy(&prog->write_lock);
 	pthread_mutex_destroy(&prog->dead_lock);
-	while ( i < prog->philos[0].nb_philos)
+	while (i < prog->philos[0].nb_philos)
 	{
 		pthread_mutex_destroy(&forks[i]);
 		++i;
+	}
+}
+
+void	smart_sleep(long long int time, int *dead)
+{
+	long long int	i;
+
+	i = get_time();
+	while (*dead != 1)
+	{
+		if (i >= time)
+			break ;
+		usleep(50);
+		i = get_time();
 	}
 }

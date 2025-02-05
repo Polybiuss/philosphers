@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 07:05:42 by jbergos           #+#    #+#             */
-/*   Updated: 2025/02/04 18:28:46 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:20:48 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ typedef struct s_program
 int				check_args(char **argv);
 int				ft_atoi_scam(char *s);
 void			init_input(t_philo *philo, char **argv);
-void			init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks, char **argv);
+void			init_philos(t_philo *philos, t_program *program, \
+pthread_mutex_t *forks, char **argv);
 void			init_forks(pthread_mutex_t *forks, int nb_philo);
 void			init_prog(t_program *prog, t_philo *philos);
 long long int	get_time(void);
@@ -63,4 +64,5 @@ int				thread_create(t_program *prog, pthread_mutex_t *forks);
 void			*monitor(void *phs);
 void			eat(t_philo *philo);
 void			clear_mutex(char *s, t_program *prog, pthread_mutex_t *forks);
+void			smart_sleep(long long int time, int *dead);
 #endif

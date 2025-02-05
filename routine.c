@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:20:19 by jbergos           #+#    #+#             */
-/*   Updated: 2025/02/04 19:02:12 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:23:03 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,31 @@ void	think(t_philo *philo)
 void	dream(t_philo *philo)
 {
 	mp("is sleeping", philo, philo->id);
-	usleep(philo->tts * 1000);
+	smart_sleep(get_time() + philo->tts, philo->dead);
 }
 
 void	eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
+	pthread_mutex_lock(philo->l_fork);
 	mp("has taken a fork", philo, philo->id);
 	if (philo->nb_philos == 1)
 	{
-		usleep(philo->ttd * 1000);
-		pthread_mutex_unlock(philo->r_fork);
+		smart_sleep(get_time() + philo->ttd, philo->dead);
+		pthread_mutex_unlock(philo->l_fork);
 		return ;
 	}
-	pthread_mutex_lock(philo->l_fork);
-	mp("has tken a fork", philo, philo->id);
+	pthread_mutex_lock(philo->r_fork);
+	mp("has taken a fork", philo, philo->id);
 	philo->eat = 1;
 	mp("is eating", philo, philo->id);
 	pthread_mutex_lock(philo->eat_lock);
 	philo->last_eat = get_time();
 	philo->nb_eat++;
 	pthread_mutex_unlock(philo->eat_lock);
-	usleep(philo->tte * 1000);
+	smart_sleep(get_time() + philo->tte, philo->dead);
 	philo->eat = 0;
-	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
 int	dead_loop(t_philo *philo)
@@ -62,8 +62,8 @@ void	*philo_routine(void *ph)
 
 	philo = (t_philo *)ph;
 	if (philo->id % 2 == 0)
-		usleep(1);
-	while(!dead_loop(philo))
+		usleep(15000);
+	while (!dead_loop(philo))
 	{
 		eat(philo);
 		dream(philo);

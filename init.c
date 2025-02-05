@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:28:29 by jbergos           #+#    #+#             */
-/*   Updated: 2025/02/04 18:38:47 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/02/05 07:05:24 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	init_input(t_philo *philo, char **argv)
 		philo->npte = -1;
 }
 
-void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks, char **argv)
+void	init_philos(t_philo *philos, t_program *program, \
+pthread_mutex_t *forks, char **argv)
 {
 	int	i;
 

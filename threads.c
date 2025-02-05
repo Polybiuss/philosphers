@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:08:16 by jbergos           #+#    #+#             */
-/*   Updated: 2025/02/04 18:53:55 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/02/05 06:25:40 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ int	thread_create(t_program *prog, pthread_mutex_t *forks)
 	i = 0;
 	while (i < prog->philos[0].nb_philos)
 	{
-		if (pthread_create(&prog->philos[i].thread, NULL, &philo_routine, &prog->philos[i]) != 0)
+		if (pthread_create(&prog->philos[i].thread, NULL, \
+		&philo_routine, &prog->philos[i]) != 0)
 			clear_mutex("Err, creation thread", prog, forks);
 		++i;
 	}
 	i = 0;
 	if (pthread_join(monitoring, NULL) != 0)
 		clear_mutex("Err, thread join", prog, forks);
-	while (i < prog->philos[i].nb_philos)
+	while (i < prog->philos[0].nb_philos)
 	{
 		if (pthread_join(prog->philos[i].thread, NULL) != 0)
-			clear_mutex("Err, thread join", prog , forks);
+			clear_mutex("Err, thread join", prog, forks);
 		++i;
 	}
 	return (0);
